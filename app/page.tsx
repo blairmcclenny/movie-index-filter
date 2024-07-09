@@ -1,17 +1,21 @@
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { getMovies, Movie, Movies } from "@/lib/api"
+import { formatDate } from "@/lib/utils"
+import { ImageIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 
 export default async function Home() {
   const movies: Movies = await getMovies()
 
   return (
-    <main className="max-w-7xl mx-auto px-6">
+    <main className="mx-auto px-8">
       <header className="py-12">
         <h1 className="font-header text-4xl">Moving Pictures</h1>
         <div>Total Pages: {movies.total_pages}</div>
@@ -20,22 +24,32 @@ export default async function Home() {
         {movies?.results?.map((movie: Movie) => (
           <Card key={movie.id} className="overflow-hidden">
             {movie.backdrop_path ? (
-              <div className="aspect-video relative">
+              <div className="aspect-[2/3] relative">
                 <Image
-                  src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
                   alt={movie.title}
                   fill
+                  sizes="(max-wdith: 789px) 100vw"
                 />
               </div>
             ) : (
-              <div className="aspect-video bg-muted-foreground" />
+              <div className="aspect-[2/3] bg-muted relative flex justify-center">
+                <ImageIcon className="w-3/12 max-w-16 h-auto text-muted-foreground" />
+              </div>
             )}
             <CardHeader>
               <CardTitle>{movie.title}</CardTitle>
-              <CardDescription className="truncate">
-                {movie.overview}
-              </CardDescription>
+              {movie.release_date && (
+                <CardDescription>
+                  {formatDate(movie.release_date)}
+                </CardDescription>
+              )}
             </CardHeader>
+            <CardFooter>
+              <Badge>
+                {Math.ceil(movie.vote_average * 10)}%
+              </Badge>
+            </CardFooter>
           </Card>
         ))}
       </div>
