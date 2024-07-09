@@ -18,14 +18,13 @@ export default async function Filters() {
 
   return (
     <>
-      <Separator />
-      <div className="flex items-center justify-between gap-8 py-4">
+      <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4">
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0">
           Filters
         </h2>
-        <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row gap-4 w-full lg:justify-end">
           <Select>
-            <SelectTrigger className="w-64">
+            <SelectTrigger className="lg:max-w-64">
               <SelectValue placeholder="Select a year" />
             </SelectTrigger>
             <SelectContent>
@@ -43,7 +42,7 @@ export default async function Filters() {
             </SelectContent>
           </Select>
           <Select>
-            <SelectTrigger className="w-64">
+            <SelectTrigger className="lg:max-w-64">
               <SelectValue placeholder="Select a genre" />
             </SelectTrigger>
             <SelectContent>
@@ -59,7 +58,7 @@ export default async function Filters() {
           </Select>
         </div>
       </div>
-      <Separator />
+      <Separator className="mt-4" />
     </>
   )
 }
