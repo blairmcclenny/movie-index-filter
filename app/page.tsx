@@ -10,17 +10,18 @@ import { getMovies, Movie, Movies } from "@/lib/api"
 import { formatDate } from "@/lib/utils"
 import { ImageIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
+import Filters from "./filters"
 
 export default async function Home() {
   const movies: Movies = await getMovies()
 
   return (
     <main className="mx-auto px-8">
-      <header className="py-12">
-        <h1 className="font-header text-4xl">Moving Pictures</h1>
-        <div>Total Pages: {movies.total_pages}</div>
+      <header className="my-12">
+        <h1 className="font-header text-4xl lg:text-5xl">Moving Pictures</h1>
       </header>
-      <div className="grid grid-cols-4 gap-8">
+      <Filters />
+      <div className="grid grid-cols-4 gap-8 mt-8">
         {movies?.results?.map((movie: Movie) => (
           <Card key={movie.id} className="overflow-hidden">
             {movie.backdrop_path ? (
@@ -46,9 +47,7 @@ export default async function Home() {
               )}
             </CardHeader>
             <CardFooter>
-              <Badge>
-                {Math.ceil(movie.vote_average * 10)}%
-              </Badge>
+              <Badge>{Math.ceil(movie.vote_average * 10)}%</Badge>
             </CardFooter>
           </Card>
         ))}
