@@ -16,12 +16,12 @@ export default async function Home() {
   const movies: Movies = await getMovies()
 
   return (
-    <main className="mx-auto px-8">
-      <header className="my-12">
+    <main className="mx-auto px-4 sm:px-8 xl:px-16 2xl:px-32">
+      <header className="my-8 md:my-12 lg:my-16">
         <h1 className="font-header text-4xl lg:text-5xl">Moving Pictures</h1>
       </header>
       <Filters />
-      <div className="grid grid-cols-4 gap-8 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
         {movies?.results?.map((movie: Movie) => (
           <Card key={movie.id} className="overflow-hidden">
             {movie.backdrop_path ? (
@@ -30,7 +30,7 @@ export default async function Home() {
                   src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
                   alt={movie.title}
                   fill
-                  sizes="(max-wdith: 789px) 100vw"
+                  sizes="(max-wdith: 780px) 100vw"
                 />
               </div>
             ) : (
@@ -39,7 +39,7 @@ export default async function Home() {
               </div>
             )}
             <CardHeader>
-              <CardTitle>{movie.title}</CardTitle>
+              <CardTitle className="leading-snug">{movie.title}</CardTitle>
               {movie.release_date && (
                 <CardDescription>
                   {formatDate(movie.release_date)}
@@ -52,7 +52,7 @@ export default async function Home() {
           </Card>
         ))}
       </div>
-      <footer className="py-12"></footer>
+      <footer className="my-16"></footer>
     </main>
   )
 }
