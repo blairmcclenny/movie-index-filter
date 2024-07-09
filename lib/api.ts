@@ -57,7 +57,7 @@ export const getMovies = async (
   sort: string = "popularity.desc"
 ) => {
   const baseUrl = "https://api.themoviedb.org/3/discover/movie"
-  const baseParams = "include_adult=false&include_video=false&language=en-US"
+  const baseParams = "include_adult=false&include_video=false&language=en-US&with_origin_country=US"
   const pageNumber = `&page=${page}`
   const sortBy = `&sort_by=${sort}`
   const primaryReleaseYear = `&primary_release_year=${year}`

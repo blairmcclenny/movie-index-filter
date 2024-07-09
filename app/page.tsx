@@ -14,6 +14,7 @@ export default async function Home() {
     <main className="max-w-7xl mx-auto px-6">
       <header className="py-12">
         <h1 className="font-header text-4xl">Moving Pictures</h1>
+        <div>Total Pages: {movies.total_pages}</div>
       </header>
       <div className="grid grid-cols-4 gap-8">
         {movies?.results?.map((movie: Movie) => (
