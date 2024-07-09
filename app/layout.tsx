@@ -1,7 +1,13 @@
 import type { Metadata } from "next"
-import { Inter as FontSans } from "next/font/google"
+import { Inter as FontSans, Limelight as FontHeader } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
+
+const fontHeader = FontHeader({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-header",
+})
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,7 +29,8 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          fontSans.variable ,
+          fontHeader.variable       
         )}
       >
         {children}

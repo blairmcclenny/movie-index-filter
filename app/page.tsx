@@ -11,9 +11,11 @@ export default async function Home() {
   const movies: Movies = await getMovies()
 
   return (
-    <main className="max-w-7xl mx-auto px-6 my-16">
-      <h1>Movie Index</h1>
-      <div className="mt-10 grid grid-cols-4 gap-8">
+    <main className="max-w-7xl mx-auto px-6">
+      <header className="py-12">
+        <h1 className="font-header text-4xl">Moving Pictures</h1>
+      </header>
+      <div className="grid grid-cols-4 gap-8">
         {movies?.results?.map((movie: Movie) => (
           <Card key={movie.id} className="overflow-hidden">
             {movie.backdrop_path ? (
@@ -36,6 +38,7 @@ export default async function Home() {
           </Card>
         ))}
       </div>
+      <footer className="py-12"></footer>
     </main>
   )
 }
