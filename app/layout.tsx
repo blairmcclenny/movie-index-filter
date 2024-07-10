@@ -3,9 +3,8 @@ import { Inter as FontSans, Limelight as FontHeader } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/themeProvider"
-import ModeToggle from "@/components/modeToggle"
-import { TypographyH1, TypographyMuted } from "@/components/typography"
-import Container from "@/components/container"
+import Header from "@/components/layout/header"
+import Footer from "@/components/layout/footer"
 
 const fontHeader = FontHeader({
   subsets: ["latin"],
@@ -43,22 +42,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header>
-            <Container className="my-8 md:my-12 lg:my-16 flex justify-between">
-              <TypographyH1 className="font-header font-normal">
-                Moving Pictures
-              </TypographyH1>
-              <ModeToggle />
-            </Container>
-          </header>
+          <Header />
           <main className="flex-1">{children}</main>
-          <footer>
-            <Container className="my-8 md:my-12 lg:my-16">
-              <TypographyMuted>
-                All data provided by The Movie DB
-              </TypographyMuted>
-            </Container>
-          </footer>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
