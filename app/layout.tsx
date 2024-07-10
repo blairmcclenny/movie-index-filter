@@ -2,6 +2,10 @@ import type { Metadata } from "next"
 import { Inter as FontSans, Limelight as FontHeader } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
+import { ThemeProvider } from "@/components/themeProvider"
+import ModeToggle from "@/components/modeToggle"
+import { TypographyH1, TypographyMuted } from "@/components/typography"
+import Container from "@/components/container"
 
 const fontHeader = FontHeader({
   subsets: ["latin"],
@@ -25,15 +29,37 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable ,
-          fontHeader.variable       
+          "min-h-screen bg-background font-sans antialiased flex flex-col",
+          fontSans.variable,
+          fontHeader.variable
         )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <header>
+            <Container className="my-8 md:my-12 lg:my-16 flex justify-between">
+              <TypographyH1 className="font-header font-normal">
+                Moving Pictures
+              </TypographyH1>
+              <ModeToggle />
+            </Container>
+          </header>
+          <main className="flex-1">{children}</main>
+          <footer>
+            <Container className="my-8 md:my-12 lg:my-16">
+              <TypographyMuted>
+                All data provided by The Movie DB
+              </TypographyMuted>
+            </Container>
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   )

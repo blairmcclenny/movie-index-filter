@@ -11,18 +11,13 @@ import { formatDate } from "@/lib/utils"
 import { ImageIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import Filters from "./filters"
-import { TypographyH1 } from "@/components/typography"
+import Container from "@/components/container"
 
 export default async function Home() {
   const movies: Movies = await getMovies()
 
   return (
-    <main className="mx-auto px-4 sm:px-8 xl:px-16 2xl:px-32">
-      <header className="my-8 md:my-12 lg:my-16">
-        <TypographyH1 className="font-header font-normal">
-          Moving Pictures
-        </TypographyH1>
-      </header>
+    <Container>
       <Filters />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
         {movies?.results?.map((movie: Movie) => (
@@ -55,7 +50,6 @@ export default async function Home() {
           </Card>
         ))}
       </div>
-      <footer className="my-16"></footer>
-    </main>
+    </Container>
   )
 }
