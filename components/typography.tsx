@@ -5,7 +5,7 @@ const TypographyH1 = ({
   className,
   children,
 }: {
-  className: string
+  className?: string
   children: React.ReactNode
 }) => {
   return (
@@ -24,7 +24,7 @@ const TypographyH2 = ({
   className,
   children,
 }: {
-  className: string
+  className?: string
   children: React.ReactNode
 }) => {
   return (
@@ -43,7 +43,7 @@ const TypographyH3 = ({
   className,
   children,
 }: {
-  className: string
+  className?: string
   children: React.ReactNode
 }) => {
   return (
@@ -62,7 +62,7 @@ const TypographyP = ({
   className,
   children,
 }: {
-  className: string
+  className?: string
   children: React.ReactNode
 }) => {
   return (
@@ -76,7 +76,7 @@ const TypographyLead = ({
   className,
   children,
 }: {
-  className: string
+  className?: string
   children: React.ReactNode
 }) => {
   return (
@@ -88,7 +88,7 @@ const TypographyLarge = ({
   className,
   children,
 }: {
-  className: string
+  className?: string
   children: React.ReactNode
 }) => {
   return (
@@ -100,7 +100,7 @@ const TypographySmall = ({
   className,
   children,
 }: {
-  className: string
+  className?: string
   children: React.ReactNode
 }) => {
   return (
@@ -114,7 +114,7 @@ const TypographyMuted = ({
   className,
   children,
 }: {
-  className: string
+  className?: string
   children: React.ReactNode
 }) => {
   return (
