@@ -1,3 +1,4 @@
+import { TypographyH2 } from "@/components/typography"
 import {
   Select,
   SelectContent,
@@ -19,9 +20,9 @@ export default async function Filters() {
   return (
     <>
       <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0">
+        <TypographyH2 className="text-2xl border-none pb-0">
           Filters
-        </h2>
+        </TypographyH2>
         <div className="flex flex-col md:flex-row gap-4 w-full lg:justify-end">
           <Select>
             <SelectTrigger className="lg:max-w-64">
