@@ -11,6 +11,7 @@ import { formatDate } from "@/lib/utils"
 import { ImageIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import Filters from "./filters"
+import { TypographyH1 } from "@/components/typography"
 
 export default async function Home() {
   const movies: Movies = await getMovies()
@@ -18,7 +19,9 @@ export default async function Home() {
   return (
     <main className="mx-auto px-4 sm:px-8 xl:px-16 2xl:px-32">
       <header className="my-8 md:my-12 lg:my-16">
-        <h1 className="font-header text-4xl lg:text-5xl">Moving Pictures</h1>
+        <TypographyH1 className="font-header font-normal">
+          Moving Pictures
+        </TypographyH1>
       </header>
       <Filters />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
