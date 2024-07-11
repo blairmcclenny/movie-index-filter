@@ -12,6 +12,7 @@ import { ImageIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import Filters from "./filters"
 import Container from "@/components/container"
+import PaginationController from "@/components/paginationController"
 
 export default async function Home() {
   const movies: Movies = await getMovies()
@@ -49,6 +50,9 @@ export default async function Home() {
             </CardFooter>
           </Card>
         ))}
+      </div>
+      <div className="mt-8">
+      <PaginationController />
       </div>
     </Container>
   )
