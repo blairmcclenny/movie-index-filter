@@ -57,7 +57,7 @@ export const getMovies = async (
 ) => {
   const baseUrl = "https://api.themoviedb.org/3/discover/movie"
   const baseParams =
-    "certification.gte=NR&certification.lte=NC-17&certification_country=US&include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_runtime.gte=90&with_runtime.lte=230"
+    "certification.gte=G&certification.lte=R&certification_country=US&include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_runtime.gte=90&with_runtime.lte=230"
   const pageNumber = page ? `&page=${page}` : ""
   const primaryReleaseYear = year ? `&primary_release_year=${year}` : ""
   const withGenres = genre ? `&with_genres=${genre}` : ""
