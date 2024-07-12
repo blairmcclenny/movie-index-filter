@@ -13,6 +13,8 @@ import Image from "next/image"
 import Filters from "./filters"
 import Container from "@/components/container"
 import PaginationController from "@/components/paginationController"
+import { Suspense } from "react"
+import { notFound } from "next/navigation"
 
 export default async function Home() {
   const movies: Movies = await getMovies()
@@ -52,7 +54,9 @@ export default async function Home() {
         ))}
       </div>
       <div className="mt-8">
-        <PaginationController />
+        <Suspense>
+          <PaginationController totalPages={movies.total_pages} />
+        </Suspense>
       </div>
     </Container>
   )

@@ -7,6 +7,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
+import Link from "next/link"
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -41,7 +42,7 @@ PaginationItem.displayName = "PaginationItem"
 type PaginationLinkProps = {
   isActive?: boolean
 } & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
+  React.ComponentProps<typeof Link>
 
 const PaginationLink = ({
   className,
@@ -49,7 +50,7 @@ const PaginationLink = ({
   size = "icon",
   ...props
 }: PaginationLinkProps) => (
-  <a
+  <Link
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({
@@ -61,6 +62,7 @@ const PaginationLink = ({
     {...props}
   />
 )
+
 PaginationLink.displayName = "PaginationLink"
 
 const PaginationPrevious = ({
@@ -69,12 +71,11 @@ const PaginationPrevious = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
-    size="default"
-    className={cn("gap-1 pl-2.5", className)}
+    size="icon"
+    className={cn("", className)}
     {...props}
   >
     <ChevronLeftIcon className="h-4 w-4" />
-    <span>Previous</span>
   </PaginationLink>
 )
 PaginationPrevious.displayName = "PaginationPrevious"
@@ -85,11 +86,10 @@ const PaginationNext = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to next page"
-    size="default"
-    className={cn("gap-1 pr-2.5", className)}
+    size="icon"
+    className={cn("", className)}
     {...props}
   >
-    <span>Next</span>
     <ChevronRightIcon className="h-4 w-4" />
   </PaginationLink>
 )
