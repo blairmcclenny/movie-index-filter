@@ -1,3 +1,8 @@
+import { Suspense } from "react"
+import Image from "next/image"
+import { getMovies, Movie, Movies } from "@/lib/api"
+import { formatDate } from "@/lib/utils"
+import { ImageIcon } from "@radix-ui/react-icons"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -6,15 +11,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { getMovies, Movie, Movies } from "@/lib/api"
-import { formatDate } from "@/lib/utils"
-import { ImageIcon } from "@radix-ui/react-icons"
-import Image from "next/image"
 import Filters from "./filters"
 import Container from "@/components/container"
+import PaginationController from "@/components/paginationController"
 
-export default async function Home() {
-  const movies: Movies = await getMovies()
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: { year?: string; genre?: string; page?: string }
+}) {
+  const movies: Movies = await getMovies(
+    searchParams?.year,
+    searchParams?.genre,
+    searchParams?.page
+  )
+  const totalPages = Math.min(movies.total_pages, 500)
 
   return (
     <Container>
@@ -49,6 +60,11 @@ export default async function Home() {
             </CardFooter>
           </Card>
         ))}
+      </div>
+      <div className="mt-8">
+        <Suspense>
+          <PaginationController totalPages={totalPages} />
+        </Suspense>
       </div>
     </Container>
   )
