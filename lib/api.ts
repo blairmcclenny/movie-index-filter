@@ -51,17 +51,18 @@ export const getMovieGenres = async () => {
 }
 
 export const getMovies = async (
-  year: number = new Date().getFullYear(),
-  genre?: number,
-  page: number = 1,
-  sort: string = "popularity.desc"
+  year?: string,
+  genre?: string,
+  page?: string
 ) => {
   const baseUrl = "https://api.themoviedb.org/3/discover/movie"
-  const baseParams = "include_adult=false&include_video=false&language=en-US&with_origin_country=US"
-  const pageNumber = `&page=${page}`
-  const sortBy = `&sort_by=${sort}`
-  const primaryReleaseYear = `&primary_release_year=${year}`
+
+  const baseParams =
+    "certification.gte=G&certification.lte=R&certification_country=US&include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_runtime.gte=90&with_runtime.lte=230"
+  const primaryReleaseYear = year ? `&primary_release_year=${year}` : ""
   const withGenres = genre ? `&with_genres=${genre}` : ""
+  const pageNumber = `&page=${page || "1"}`
+
   const options = {
     method: "GET",
     headers: {
@@ -71,7 +72,7 @@ export const getMovies = async (
   }
 
   const movies = await fetch(
-    `${baseUrl}?${baseParams}${primaryReleaseYear}${withGenres}${pageNumber}${sortBy}`,
+    `${baseUrl}?${baseParams}${primaryReleaseYear}${withGenres}${pageNumber}`,
     options
   )
 
