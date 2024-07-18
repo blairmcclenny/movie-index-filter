@@ -9,13 +9,40 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useCallback } from "react"
 
 export default function FilterYear() {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
   const currentYear = new Date().getFullYear()
   const years: number[] = Array.from({ length: 101 }, (_, i) => currentYear - i)
 
+  const defaultValue = years.find(
+    (year: number) => searchParams?.get("year") === year.toString()
+  )
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+
+      params.delete("page")
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
+
   return (
-    <Select>
+    <Select
+      defaultValue={defaultValue?.toString()}
+      onValueChange={(value) =>
+        router.push(pathname + "?" + createQueryString("year", value))
+      }
+    >
       <SelectTrigger className="lg:max-w-64">
         <SelectValue placeholder="Select a year" />
       </SelectTrigger>
