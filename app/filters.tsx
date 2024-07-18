@@ -1,21 +1,12 @@
+import { Suspense } from "react"
 import { TypographyH2 } from "@/components/typography"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { Genre, Genres, getMovieGenres } from "@/lib/api"
+import { Genres, getMovieGenres } from "@/lib/api"
+import FilterYear from "./filterYear"
+import FilterGenre from "./filterGenre"
 
 export default async function Filters() {
   const genres: Genres = await getMovieGenres()
-
-  const currentYear = new Date().getFullYear()
-  const years: number[] = Array.from({ length: 101 }, (_, i) => currentYear - i)
 
   return (
     <>
@@ -24,39 +15,12 @@ export default async function Filters() {
           Filters
         </TypographyH2>
         <div className="flex flex-col md:flex-row gap-4 w-full lg:justify-end">
-          <Select>
-            <SelectTrigger className="lg:max-w-64">
-              <SelectValue placeholder="Select a year" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Years</SelectLabel>
-                {years.map((year) => (
-                  <SelectItem
-                    key={`release-year-${year}`}
-                    value={year.toString()}
-                  >
-                    {year}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger className="lg:max-w-64">
-              <SelectValue placeholder="Select a genre" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Genres</SelectLabel>
-                {genres.genres.map((genre: Genre) => (
-                  <SelectItem key={genre.id} value={genre.id.toString()}>
-                    {genre.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Suspense>
+            <FilterYear />
+          </Suspense>
+          <Suspense>
+            <FilterGenre genres={genres?.genres} />
+          </Suspense>
         </div>
       </div>
       <Separator className="mt-4" />
