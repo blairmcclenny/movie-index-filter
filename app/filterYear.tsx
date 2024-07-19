@@ -20,15 +20,14 @@ export default function FilterYear() {
   const currentYear = new Date().getFullYear()
   const years: number[] = Array.from({ length: 101 }, (_, i) => currentYear - i)
 
-  const [defaultValue, setDefaultValue] = useState("")
+  const [selectedYear, setSelectedYear] = useState("")
 
   useEffect(() => {
-    const defaultValue =
+    setSelectedYear(
       years
         .find((year: number) => searchParams?.get("year") === year.toString())
         ?.toString() || ""
-
-    setDefaultValue(defaultValue)
+    )
   }, [searchParams, years])
 
   const createQueryString = useCallback(
@@ -45,7 +44,7 @@ export default function FilterYear() {
 
   return (
     <Select
-      value={defaultValue}
+      value={selectedYear}
       onValueChange={(value) =>
         router.push(pathname + "?" + createQueryString("year", value))
       }
