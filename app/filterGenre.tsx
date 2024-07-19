@@ -11,18 +11,24 @@ import {
 } from "@/components/ui/select"
 import { Genre } from "@/lib/api"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 export default function FilterGenre({ genres }: { genres: Genre[] }) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const defaultValue = genres
-    ?.find(
-      (genre: Genre) => searchParams?.get("genre") === genre?.id?.toString()
+  const [selectedGenreId, setSelectedGenreId] = useState("")
+
+  useEffect(() => {
+    setSelectedGenreId(
+      genres
+        ?.find(
+          (genre: Genre) => searchParams?.get("genre") === genre?.id?.toString()
+        )
+        ?.id?.toString() || ""
     )
-    ?.id?.toString()
+  }, [searchParams, genres])
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -42,7 +48,7 @@ export default function FilterGenre({ genres }: { genres: Genre[] }) {
 
   return (
     <Select
-      defaultValue={defaultValue}
+      value={selectedGenreId}
       onValueChange={(value) =>
         router.push(pathname + "?" + createQueryString("genre", value))
       }

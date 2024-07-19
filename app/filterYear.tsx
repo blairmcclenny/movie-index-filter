@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 export default function FilterYear() {
   const router = useRouter()
@@ -20,9 +20,15 @@ export default function FilterYear() {
   const currentYear = new Date().getFullYear()
   const years: number[] = Array.from({ length: 101 }, (_, i) => currentYear - i)
 
-  const defaultValue = years.find(
-    (year: number) => searchParams?.get("year") === year.toString()
-  )
+  const [selectedYear, setSelectedYear] = useState("")
+
+  useEffect(() => {
+    setSelectedYear(
+      years
+        .find((year: number) => searchParams?.get("year") === year.toString())
+        ?.toString() || ""
+    )
+  }, [searchParams, years])
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -38,7 +44,7 @@ export default function FilterYear() {
 
   return (
     <Select
-      defaultValue={defaultValue?.toString()}
+      value={selectedYear}
       onValueChange={(value) =>
         router.push(pathname + "?" + createQueryString("year", value))
       }
