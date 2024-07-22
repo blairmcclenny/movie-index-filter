@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import { TypographyH2 } from "@/components/typography"
 import { Separator } from "@/components/ui/separator"
-import { Genres, getMovieGenres } from "@/lib/api"
+import { Genres, getMovieGenres } from "@/lib/api/genres"
 import FilterYear from "./filterYear"
 import FilterGenre from "./filterGenre"
 
