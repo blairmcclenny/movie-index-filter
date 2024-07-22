@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import Image from "next/image"
-import { getMovies, Movie, Movies } from "@/lib/api"
+import { getMovies, Movie, Movies } from "@/lib/api/movies"
 import { formatDate } from "@/lib/utils"
 import { ImageIcon } from "@radix-ui/react-icons"
 import { Badge } from "@/components/ui/badge"
@@ -14,6 +14,7 @@ import {
 import Filters from "./filters"
 import Container from "@/components/container"
 import PaginationController from "@/components/paginationController"
+import Link from "next/link"
 
 export default async function Home({
   searchParams,
@@ -32,33 +33,35 @@ export default async function Home({
       <Filters />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
         {movies?.results?.map((movie: Movie) => (
-          <Card key={movie.id} className="overflow-hidden">
-            {movie.backdrop_path ? (
-              <div className="aspect-[2/3] relative">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
-                  alt={movie.title}
-                  fill
-                  sizes="(max-wdith: 780px) 100vw"
-                />
-              </div>
-            ) : (
-              <div className="aspect-[2/3] bg-muted relative flex justify-center">
-                <ImageIcon className="w-3/12 max-w-16 h-auto text-muted-foreground" />
-              </div>
-            )}
-            <CardHeader>
-              <CardTitle className="leading-snug">{movie.title}</CardTitle>
-              {movie.release_date && (
-                <CardDescription>
-                  {formatDate(movie.release_date)}
-                </CardDescription>
+          <Link href={`/${movie?.id}`} key={movie?.id}>
+            <Card className="overflow-hidden">
+              {movie?.poster_path ? (
+                <div className="aspect-[2/3] relative">
+                  <Image
+                    src={`${process.env.IMAGE_BASE_URL}w780/${movie?.poster_path}`}
+                    alt={movie?.title}
+                    fill
+                    sizes="(max-wdith: 780px) 100vw"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-[2/3] bg-muted relative flex justify-center">
+                  <ImageIcon className="w-3/12 max-w-16 h-auto text-muted-foreground" />
+                </div>
               )}
-            </CardHeader>
-            <CardFooter>
-              <Badge>{Math.ceil(movie.vote_average * 10)}%</Badge>
-            </CardFooter>
-          </Card>
+              <CardHeader>
+                <CardTitle className="leading-snug">{movie?.title}</CardTitle>
+                {movie?.release_date && (
+                  <CardDescription>
+                    {formatDate(movie?.release_date)}
+                  </CardDescription>
+                )}
+              </CardHeader>
+              <CardFooter>
+                <Badge>{Math.ceil(movie?.vote_average * 10)}%</Badge>
+              </CardFooter>
+            </Card>
+          </Link>
         ))}
       </div>
       <div className="mt-8">
