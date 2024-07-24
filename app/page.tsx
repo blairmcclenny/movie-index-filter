@@ -38,7 +38,7 @@ export default async function Home({
               {movie?.poster_path ? (
                 <div className="aspect-[2/3] relative">
                   <Image
-                    src={`${process.env.IMAGE_BASE_URL}w780/${movie?.poster_path}`}
+                    src={`${process.env.IMAGE_BASE_URL}/w780/${movie?.poster_path}`}
                     alt={movie?.title}
                     fill
                     sizes="(max-wdith: 780px) 100vw"

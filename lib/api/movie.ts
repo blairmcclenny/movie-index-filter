@@ -27,7 +27,7 @@ export interface Movie {
 }
 
 export const getMovie = async (id?: string) => {
-  const baseUrl = `${process.env.API_BASE_URL}movie`
+  const baseUrl = `${process.env.API_BASE_URL}/movie`
 
   const options = {
     method: "GET",
