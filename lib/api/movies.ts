@@ -1,3 +1,5 @@
+import { formatQueryString } from "../utils"
+
 export interface Movie {
   adult: boolean
   backdrop_path: string
@@ -27,13 +29,20 @@ export const getMovies = async (
   genre?: string,
   page?: string
 ) => {
-  const baseUrl = "https://api.themoviedb.org/3/discover/movie"
+  const queryParamsArray: [string, string | undefined][] = [
+    ["certification_country", "US"],
+    ["include_adult", "false"],
+    ["include_video", "false"],
+    ["language", "en-US"],
+    ["sort_by", "popularity.desc"],
+    ["with_runtime.gte", "90"],
+    ["with_runtime.lte", "230"],
+    ["primary_release_year", year],
+    ["with_genres", genre],
+    ["page", page],
+  ]
 
-  const baseParams =
-    "certification.gte=G&certification.lte=R&certification_country=US&include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_runtime.gte=90&with_runtime.lte=230"
-  const primaryReleaseYear = year ? `&primary_release_year=${year}` : ""
-  const withGenres = genre ? `&with_genres=${genre}` : ""
-  const pageNumber = `&page=${page || "1"}`
+  const queryParams = formatQueryString(new Map(queryParamsArray))
 
   const options = {
     method: "GET",
@@ -44,7 +53,7 @@ export const getMovies = async (
   }
 
   const movies = await fetch(
-    `${baseUrl}?${baseParams}${primaryReleaseYear}${withGenres}${pageNumber}`,
+    `${process.env.API_BASE_URL}/discover/movie${queryParams}`,
     options
   )
 
