@@ -15,6 +15,26 @@ export function formatDate(date: string) {
   })
 }
 
+export function formatQueryString(
+  params: Map<string, string | undefined>
+): string {
+  if (!params) {
+    return ""
+  }
+
+  const queryString = Array.from(params).reduce((acc, [key, value], i) => {
+    const param = value && `${key}=${value}`
+
+    if (!param) {
+      return acc
+    }
+
+    return acc + `${i !== 0 ? "&" : ""}${param}`
+  }, "?")
+
+  return queryString
+}
+
 export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the total number of pages is 7 or less,
   // display all pages without any ellipsis.

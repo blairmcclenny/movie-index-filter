@@ -8,7 +8,7 @@ export interface Genres {
 }
 
 export const getMovieGenres = async () => {
-  const url = "https://api.themoviedb.org/3/genre/movie/list?language=en"
+  const url = `${process.env.API_BASE_URL}genre/movie/list?language=en`
   const options = {
     method: "GET",
     headers: {
