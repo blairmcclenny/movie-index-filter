@@ -5,15 +5,31 @@ import {
   TypographyLead,
   TypographyMuted,
   TypographyP,
-  TypographySmall,
 } from "@/components/typography"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { getMovie, Movie } from "@/lib/api/movie"
 import { formatDate } from "@/lib/utils"
 import { ImageIcon } from "@radix-ui/react-icons"
+import { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string }
+}): Promise<Metadata> {
+  const movie: Movie = await getMovie(params.id)
+
+  if (!movie) {
+    return notFound()
+  }
+
+  return {
+    title: movie.title,
+  }
+}
 
 export default async function MoviePage({
   params,
