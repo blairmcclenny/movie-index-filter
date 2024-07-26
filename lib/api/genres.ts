@@ -15,12 +15,13 @@ export const getMovieGenres = async () => {
       accept: "application/json",
       Authorization: `Bearer ${process.env.MOVIE_DB_ACCESS_TOKEN}`,
     },
+    next: { revalidate: 3600 },
   }
 
   const genres = await fetch(url, options)
 
   if (!genres.ok) {
-    throw new Error("Failed to fetch movie genres")
+    return undefined
   }
 
   return genres.json()

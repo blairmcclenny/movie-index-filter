@@ -1,3 +1,4 @@
+import next from "next"
 import { formatQueryString } from "../utils"
 
 export interface Movie {
@@ -50,6 +51,7 @@ export const getMovies = async (
       accept: "application/json",
       Authorization: `Bearer ${process.env.MOVIE_DB_ACCESS_TOKEN}`,
     },
+    next: { revalidate: 3600 },
   }
 
   const movies = await fetch(
@@ -58,7 +60,7 @@ export const getMovies = async (
   )
 
   if (!movies.ok) {
-    throw new Error("Failed to fetch movies")
+    return undefined
   }
 
   return movies.json()
