@@ -15,6 +15,8 @@ import Filters from "./filters"
 import Container from "@/components/container"
 import PaginationController from "@/components/paginationController"
 import Link from "next/link"
+import { notFound } from "next/navigation"
+import { TypographyH2 } from "@/components/typography"
 
 export default async function Home({
   searchParams,
@@ -26,7 +28,23 @@ export default async function Home({
     searchParams?.genre,
     searchParams?.page
   )
-  const totalPages = Math.min(movies.total_pages, 500)
+
+  if (!movies) {
+    return notFound()
+  }
+
+  if (movies.results.length === 0) {
+    return (
+      <Container>
+        <Filters />
+        <div className="text-center mt-8">
+          <TypographyH2 className="border-none pb-0">
+            No movies found
+          </TypographyH2>
+        </div>
+      </Container>
+    )
+  }
 
   return (
     <Container>
@@ -64,11 +82,15 @@ export default async function Home({
           </Link>
         ))}
       </div>
-      <div className="mt-8">
-        <Suspense>
-          <PaginationController totalPages={totalPages} />
-        </Suspense>
-      </div>
+      <Suspense>
+        {movies.total_pages > 1 && (
+          <div className="mt-8">
+            <PaginationController
+              totalPages={Math.min(movies.total_pages, 500)}
+            />
+          </div>
+        )}
+      </Suspense>
     </Container>
   )
 }
