@@ -35,6 +35,7 @@ export const getMovie = async (id?: string) => {
       accept: "application/json",
       Authorization: `Bearer ${process.env.MOVIE_DB_ACCESS_TOKEN}`,
     },
+    next: { revalidate: 3600 },
   }
 
   const movie = await fetch(`${baseUrl}/${id}?language=en-US`, options)
