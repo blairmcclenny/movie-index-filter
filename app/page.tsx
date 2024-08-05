@@ -54,7 +54,7 @@ export default async function Home({
           <Link href={`/${movie?.id}`} key={movie?.id}>
             <Card className="overflow-hidden">
               {movie?.poster_path ? (
-                <div className="aspect-[2/3] relative">
+                <div className="aspect-[2/3] relative bg-muted">
                   <Image
                     src={`${process.env.IMAGE_BASE_URL}/w780/${movie?.poster_path}`}
                     alt={movie?.title}
