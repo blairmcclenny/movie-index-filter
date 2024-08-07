@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project for filtering and displaying movies, bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -19,6 +19,15 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Features
+
+- Filter movies by genre and year
+- Display movie details including title, poster, and release date
+
+## API
+
+This project uses the [Movie Database API](https://developer.themoviedb.org/docs/getting-started) to fetch movie data. Make sure to set up your API key in the environment variables.
 
 ## Learn More
 
