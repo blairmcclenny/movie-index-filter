@@ -24,7 +24,7 @@ export default function FilterGenre({ genres }: { genres: Genre[] }) {
     setSelectedGenreId(
       genres
         ?.find(
-          (genre: Genre) => searchParams?.get("genre") === genre?.id?.toString()
+          (genre: Genre) => searchParams?.get("with_genres") === genre?.id?.toString()
         )
         ?.id?.toString() || ""
     )
@@ -50,7 +50,7 @@ export default function FilterGenre({ genres }: { genres: Genre[] }) {
     <Select
       value={selectedGenreId}
       onValueChange={(value) =>
-        router.push(pathname + "?" + createQueryString("genre", value))
+        router.push(pathname + "?" + createQueryString("with_genres", value))
       }
     >
       <SelectTrigger className="lg:max-w-64">

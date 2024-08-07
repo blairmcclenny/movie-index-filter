@@ -1,6 +1,3 @@
-import next from "next"
-import { formatQueryString } from "../utils"
-
 export interface Movie {
   adult: boolean
   backdrop_path: string
@@ -25,25 +22,19 @@ export interface Movies {
   total_results: number
 }
 
-export const getMovies = async (
-  year?: string,
-  genre?: string,
-  page?: string
-) => {
-  const queryParamsArray: [string, string | undefined][] = [
-    ["certification_country", "US"],
-    ["include_adult", "false"],
-    ["include_video", "false"],
-    ["language", "en-US"],
-    ["sort_by", "popularity.desc"],
-    ["with_runtime.gte", "90"],
-    ["with_runtime.lte", "230"],
-    ["primary_release_year", year],
-    ["with_genres", genre],
-    ["page", page],
-  ]
+export const getMovies = async (searchParams?: Record<string, string>) => {
+  const queryParams: Record<string, string> = {
+    certification_country: "US",
+    include_adult: "false",
+    include_video: "false",
+    language: "en-US",
+    sort_by: "popularity.desc",
+    "with_runtime.gte": "90",
+    "with_runtime.lte": "230",
+    ...searchParams,
+  }
 
-  const queryParams = formatQueryString(new Map(queryParamsArray))
+  const queryString = new URLSearchParams(queryParams).toString()
 
   const options = {
     method: "GET",
@@ -55,7 +46,7 @@ export const getMovies = async (
   }
 
   const movies = await fetch(
-    `${process.env.API_BASE_URL}/discover/movie${queryParams}`,
+    `${process.env.API_BASE_URL}/discover/movie?${queryString}`,
     options
   )
 

@@ -21,13 +21,9 @@ import { TypographyH2 } from "@/components/typography"
 export default async function Home({
   searchParams,
 }: {
-  searchParams?: { year?: string; genre?: string; page?: string }
+  searchParams?: Record<string, string>
 }) {
-  const movies: Movies = await getMovies(
-    searchParams?.year,
-    searchParams?.genre,
-    searchParams?.page
-  )
+  const movies: Movies = await getMovies(searchParams)
 
   if (!movies) {
     return notFound()
@@ -54,7 +50,7 @@ export default async function Home({
           <Link href={`/${movie?.id}`} key={movie?.id}>
             <Card className="overflow-hidden">
               {movie?.poster_path ? (
-                <div className="aspect-[2/3] relative">
+                <div className="aspect-[2/3] relative bg-muted">
                   <Image
                     src={`${process.env.IMAGE_BASE_URL}/w780/${movie?.poster_path}`}
                     alt={movie?.title}

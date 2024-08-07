@@ -46,7 +46,7 @@ export default async function MoviePage({
     <Container className="max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8">
       <Card className="overflow-hidden h-fit">
         {movie?.poster_path ? (
-          <div className="aspect-[2/3] relative">
+          <div className="aspect-[2/3] relative bg-muted">
             <Image
               src={`${process.env.IMAGE_BASE_URL}/w780/${movie?.poster_path}`}
               alt={movie?.title}
