@@ -25,7 +25,7 @@ export default function FilterYear() {
   useEffect(() => {
     setSelectedYear(
       years
-        .find((year: number) => searchParams?.get("year") === year.toString())
+        .find((year: number) => searchParams?.get("primary_release_year") === year.toString())
         ?.toString() || ""
     )
   }, [searchParams, years])
@@ -46,7 +46,7 @@ export default function FilterYear() {
     <Select
       value={selectedYear}
       onValueChange={(value) =>
-        router.push(pathname + "?" + createQueryString("year", value))
+        router.push(pathname + "?" + createQueryString("primary_release_year", value))
       }
     >
       <SelectTrigger className="lg:max-w-64">

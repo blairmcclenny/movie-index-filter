@@ -21,13 +21,9 @@ import { TypographyH2 } from "@/components/typography"
 export default async function Home({
   searchParams,
 }: {
-  searchParams?: { year?: string; genre?: string; page?: string }
+  searchParams?: Record<string, string>
 }) {
-  const movies: Movies = await getMovies(
-    searchParams?.year,
-    searchParams?.genre,
-    searchParams?.page
-  )
+  const movies: Movies = await getMovies(searchParams)
 
   if (!movies) {
     return notFound()
