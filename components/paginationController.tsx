@@ -9,8 +9,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { cn, generatePagination } from "@/lib/utils"
+import { cn, generatePagination, generatePaginationCompact } from "@/lib/utils"
 import { usePathname, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function PaginationController({
   totalPages,
@@ -27,10 +28,34 @@ export default function PaginationController({
     return `${pathname}?${params.toString()}`
   }
 
-  const allPages = generatePagination(currentPage, totalPages)
+  const [isMounted, setIsMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 640px)")
+
+    const handleMediaQueryChange = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches)
+    }
+
+    setIsMobile(mediaQuery.matches)
+    mediaQuery.addEventListener("change", handleMediaQueryChange)
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange)
+    }
+  }, [])
+
+  const allPages = isMobile
+    ? generatePaginationCompact(currentPage, totalPages)
+    : generatePagination(currentPage, totalPages)
 
   return (
-    <Pagination>
+    <Pagination className={cn(!isMounted && 'invisible')}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
