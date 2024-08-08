@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import {
   Pagination,
   PaginationContent,
@@ -11,7 +12,6 @@ import {
 } from "@/components/ui/pagination"
 import { cn, generatePagination, generatePaginationCompact } from "@/lib/utils"
 import { usePathname, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
 
 export default function PaginationController({
   totalPages,
@@ -55,7 +55,7 @@ export default function PaginationController({
     : generatePagination(currentPage, totalPages)
 
   return (
-    <Pagination className={cn(!isMounted && 'invisible')}>
+    <Pagination className={cn(!isMounted && "invisible")}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
