@@ -25,6 +25,8 @@ export interface Movies {
 export const getMovies = async (searchParams?: Record<string, string>) => {
   const queryParams: Record<string, string> = {
     certification_country: "US",
+    "certification.gte": "1",
+    "certification.lte": "4",
     include_adult: "false",
     include_video: "false",
     language: "en-US",
