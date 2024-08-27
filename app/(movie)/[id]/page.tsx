@@ -48,10 +48,11 @@ export default async function MoviePage({
         {movie?.poster_path ? (
           <div className="aspect-[2/3] relative bg-muted">
             <Image
-              src={`${process.env.IMAGE_BASE_URL}/w780/${movie?.poster_path}`}
+              src={`${process.env.IMAGE_BASE_URL}${movie?.poster_path}`}
               alt={movie?.title}
               fill
-              sizes="(max-wdith: 780px) 100vw"
+              sizes="(max-wdith: 780px) 50vw"
+              unoptimized
             />
           </div>
         ) : (
