@@ -31,6 +31,7 @@ export const getMovies = async (searchParams?: Record<string, string>) => {
     include_video: "false",
     language: "en-US",
     sort_by: "popularity.desc",
+    "vote_count.gte": "1",
     "with_runtime.gte": "90",
     "with_runtime.lte": "230",
     ...searchParams,
