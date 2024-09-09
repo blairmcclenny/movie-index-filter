@@ -23,10 +23,13 @@ export interface Movies {
 }
 
 export const getMovies = async (searchParams?: Record<string, string>) => {
+  const notCertified = Number(searchParams?.primary_release_year) < 1968
+  const certificationGTE = notCertified ? "NR" : "G"
+
   const queryParams: Record<string, string> = {
     certification_country: "US",
-    "certification.gte": "1",
-    "certification.lte": "4",
+    "certification.gte": certificationGTE,
+    "certification.lte": "PG-13",
     include_adult: "false",
     include_video: "false",
     language: "en-US",
