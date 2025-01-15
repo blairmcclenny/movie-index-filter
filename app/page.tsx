@@ -18,11 +18,12 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { TypographyH2 } from "@/components/typography"
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams?: Record<string, string>
-}) {
+export default async function Home(
+  props: {
+    searchParams?: Promise<Record<string, string>>
+  }
+) {
+  const searchParams = await props.searchParams;
   const movies: Movies = await getMovies(searchParams)
 
   if (!movies) {
