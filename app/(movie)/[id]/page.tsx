@@ -15,11 +15,12 @@ import { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string }
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ id: string }>
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const movie: Movie = await getMovie(params.id)
 
   if (!movie) {
@@ -31,11 +32,12 @@ export async function generateMetadata({
   }
 }
 
-export default async function MoviePage({
-  params,
-}: {
-  params: { id: string }
-}) {
+export default async function MoviePage(
+  props: {
+    params: Promise<{ id: string }>
+  }
+) {
+  const params = await props.params;
   const movie: Movie = await getMovie(params.id)
 
   if (!movie) {
