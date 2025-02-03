@@ -12,7 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Filters from "./filters"
-import Container from "@/components/container"
 import PaginationController from "@/components/paginationController"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -32,19 +31,19 @@ export default async function Home(
 
   if (movies.results.length === 0) {
     return (
-      <Container>
+      <div className="container">
         <Filters />
         <div className="text-center mt-8">
           <TypographyH2 className="border-none pb-0">
             No movies found
           </TypographyH2>
         </div>
-      </Container>
+      </div>
     )
   }
 
   return (
-    <Container>
+    <div className="container">
       <Filters />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
         {movies?.results?.map((movie: Movie) => (
@@ -89,6 +88,6 @@ export default async function Home(
           </div>
         )}
       </Suspense>
-    </Container>
+    </div>
   )
 }
