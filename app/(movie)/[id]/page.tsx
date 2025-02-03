@@ -1,4 +1,3 @@
-import Container from "@/components/container"
 import {
   TypographyH1,
   TypographyH2,
@@ -45,7 +44,7 @@ export default async function MoviePage(
   }
 
   return (
-    <Container className="max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="container max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8">
       <Card className="overflow-hidden h-fit">
         {movie?.poster_path ? (
           <div className="aspect-2/3 relative bg-muted">
@@ -76,6 +75,6 @@ export default async function MoviePage(
         <TypographyH2 className="mt-10">{movie?.tagline}</TypographyH2>
         <TypographyP>{movie?.overview}</TypographyP>
       </div>
-    </Container>
+    </div>
   )
 }
